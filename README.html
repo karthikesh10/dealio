@@ -1,0 +1,247 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dealio — Buy & Sell Electronics and Daily Essentials</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0f0f0f; color: #e8e8e8; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+ 
+    /* Nav */
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 2.5rem; border-bottom: 0.5px solid #2a2a2a; position: sticky; top: 0; background: #0f0f0f; z-index: 100; }
+    .logo { font-size: 20px; font-weight: 600; color: #fff; letter-spacing: -0.3px; text-decoration: none; }
+    .logo span { color: #7f77dd; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 14px; color: #999; text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: #e8e8e8; }
+    .btn-nav { background: #7f77dd; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+    .btn-nav:hover { background: #6d65cc; }
+ 
+    /* Hero */
+    .hero { text-align: center; padding: 5rem 2rem 4rem; max-width: 700px; margin: 0 auto; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; background: #1e1a3a; color: #afa9ec; font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid #534ab7; margin-bottom: 1.5rem; }
+    .hero h1 { font-size: 48px; font-weight: 600; line-height: 1.15; color: #fff; margin-bottom: 1.25rem; }
+    .hero h1 em { font-style: normal; color: #7f77dd; }
+    .hero p { font-size: 17px; color: #999; line-height: 1.7; margin-bottom: 2.5rem; }
+    .cta-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: #7f77dd; color: #fff; border: none; padding: 13px 32px; border-radius: 10px; font-size: 15px; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+    .btn-primary:hover { background: #6d65cc; }
+    .btn-secondary { background: transparent; color: #e8e8e8; border: 0.5px solid #444; padding: 13px 32px; border-radius: 10px; font-size: 15px; cursor: pointer; font-family: inherit; transition: border-color 0.2s; }
+    .btn-secondary:hover { border-color: #888; }
+ 
+    /* Stats */
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #2a2a2a; border: 0.5px solid #2a2a2a; border-radius: 12px; overflow: hidden; max-width: 560px; margin: 3.5rem auto 0; }
+    .stat { background: #161616; padding: 1.2rem; text-align: center; }
+    .stat-num { font-size: 26px; font-weight: 600; color: #fff; }
+    .stat-label { font-size: 12px; color: #666; margin-top: 3px; }
+ 
+    /* Sections */
+    .section { padding: 4rem 2.5rem; max-width: 900px; margin: 0 auto; }
+    .section-label { font-size: 12px; color: #7f77dd; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.6rem; }
+    .section-title { font-size: 28px; font-weight: 600; color: #fff; margin-bottom: 0.75rem; }
+    .section-sub { font-size: 15px; color: #888; line-height: 1.7; margin-bottom: 2.5rem; }
+ 
+    /* Features */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .feat-card { background: #161616; border: 0.5px solid #2a2a2a; border-radius: 12px; padding: 1.4rem; transition: border-color 0.2s; }
+    .feat-card:hover { border-color: #534ab7; }
+    .feat-icon { width: 38px; height: 38px; background: #1e1a3a; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: #afa9ec; font-size: 18px; }
+    .feat-card h3 { font-size: 15px; font-weight: 500; color: #e8e8e8; margin-bottom: 6px; }
+    .feat-card p { font-size: 13px; color: #777; line-height: 1.6; }
+ 
+    /* Category pills */
+    .cats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .cat-pill { display: flex; align-items: center; gap: 8px; background: #161616; border: 0.5px solid #2a2a2a; border-radius: 30px; padding: 8px 18px; font-size: 13px; color: #aaa; cursor: pointer; transition: all 0.2s; }
+    .cat-pill:hover, .cat-pill.active { border-color: #534ab7; color: #afa9ec; background: #1e1a3a; }
+ 
+    /* Product cards */
+    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .prod-card { background: #161616; border: 0.5px solid #2a2a2a; border-radius: 12px; overflow: hidden; transition: border-color 0.2s; }
+    .prod-card:hover { border-color: #534ab7; }
+    .prod-img { height: 130px; display: flex; align-items: center; justify-content: center; font-size: 42px; background: #1c1c1c; }
+    .prod-body { padding: 1rem; }
+    .prod-title { font-size: 14px; font-weight: 500; color: #e8e8e8; margin-bottom: 4px; }
+    .prod-meta { font-size: 12px; color: #666; margin-bottom: 8px; }
+    .prod-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+    .prod-price { font-size: 16px; font-weight: 600; color: #7f77dd; }
+    .cond-badge { font-size: 11px; padding: 3px 9px; border-radius: 20px; }
+    .cond-new { background: #1e1a3a; color: #afa9ec; border: 0.5px solid #534ab7; }
+    .cond-good { background: #0f2a1a; color: #5dcaa5; border: 0.5px solid #0f6e56; }
+    .cond-fair { background: #2a1f0a; color: #ef9f27; border: 0.5px solid #854f0b; }
+ 
+    /* How it works */
+    .how { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    .how-step { text-align: center; padding: 1.5rem 1rem; }
+    .how-num { width: 36px; height: 36px; border-radius: 50%; background: #1e1a3a; border: 0.5px solid #534ab7; color: #afa9ec; font-size: 14px; font-weight: 500; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+    .how-step h4 { font-size: 14px; font-weight: 500; color: #e8e8e8; margin-bottom: 6px; }
+    .how-step p { font-size: 13px; color: #666; line-height: 1.5; }
+ 
+    /* CTA Banner */
+    .cta-banner { background: #1e1a3a; border: 0.5px solid #534ab7; border-radius: 16px; padding: 3rem 2rem; text-align: center; max-width: 900px; margin: 0 auto 4rem; }
+    .cta-banner h2 { font-size: 26px; font-weight: 600; color: #fff; margin-bottom: 0.75rem; }
+    .cta-banner p { font-size: 15px; color: #afa9ec; margin-bottom: 2rem; }
+ 
+    /* Divider */
+    .divider { height: 0.5px; background: #2a2a2a; max-width: 900px; margin: 0 auto; }
+ 
+    /* Footer */
+    .footer { border-top: 0.5px solid #2a2a2a; padding: 2rem 2.5rem; text-align: center; color: #555; font-size: 13px; }
+    .footer span { color: #7f77dd; }
+ 
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero h1 { font-size: 32px; }
+      .stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+ 
+  <nav class="nav">
+    <a href="#" class="logo">deal<span>io</span></a>
+    <ul class="nav-links">
+      <li><a href="#">Browse</a></li>
+      <li><a href="#">Electronics</a></li>
+      <li><a href="#">Essentials</a></li>
+      <li><a href="#">How it works</a></li>
+    </ul>
+    <button class="btn-nav">Start selling</button>
+  </nav>
+ 
+  <section class="hero">
+    <div class="badge"><i class="ti ti-bolt"></i> Buy &amp; sell smarter</div>
+    <h1>Your marketplace for <em>electronics</em> &amp; daily essentials</h1>
+    <p>List your used products in minutes. Add photos, set your price, show the condition — and reach buyers who actually want what you're selling.</p>
+    <div class="cta-group">
+      <button class="btn-primary">List a product</button>
+      <button class="btn-secondary">Browse listings</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num">12k+</div><div class="stat-label">Active listings</div></div>
+      <div class="stat"><div class="stat-num">4.8★</div><div class="stat-label">Avg. seller rating</div></div>
+      <div class="stat"><div class="stat-num">2 min</div><div class="stat-label">To list a product</div></div>
+    </div>
+  </section>
+ 
+  <div class="divider"></div>
+ 
+  <section class="section">
+    <div class="section-label">Features</div>
+    <div class="section-title">Everything a seller needs</div>
+    <div class="section-sub">List fast, sell confidently. Buyers get all the details they need to decide.</div>
+    <div class="features">
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-camera"></i></div>
+        <h3>Photo uploads</h3>
+        <p>Upload multiple photos so buyers can see exactly what they're getting.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-tag"></i></div>
+        <h3>Set your price</h3>
+        <p>Full control over pricing. Update or negotiate directly with buyers.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-calendar"></i></div>
+        <h3>Purchase date</h3>
+        <p>Add when you bought it so buyers can gauge age and wear easily.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-shield-check"></i></div>
+        <h3>Condition rating</h3>
+        <p>Mark as New, Like New, Good, or Fair — so there are no surprises.</p>
+      </div>
+    </div>
+  </section>
+ 
+  <div class="divider"></div>
+ 
+  <section class="section">
+    <div class="section-label">Browse listings</div>
+    <div class="section-title">What's available right now</div>
+    <div class="section-sub">Two focused categories — electronics and daily essentials. No clutter.</div>
+    <div class="cats">
+      <div class="cat-pill active"><i class="ti ti-device-laptop"></i> Electronics</div>
+      <div class="cat-pill"><i class="ti ti-shopping-bag"></i> Daily essentials</div>
+    </div>
+    <div class="products">
+      <div class="prod-card">
+        <div class="prod-img">💻</div>
+        <div class="prod-body">
+          <div class="prod-title">MacBook Pro 14"</div>
+          <div class="prod-meta">Bought Jan 2023 · M1 Pro, 16GB</div>
+          <div class="prod-footer">
+            <span class="prod-price">$820</span>
+            <span class="cond-badge cond-new">Like new</span>
+          </div>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img">📷</div>
+        <div class="prod-body">
+          <div class="prod-title">Sony Alpha A6400</div>
+          <div class="prod-meta">Bought Mar 2022 · Kit lens included</div>
+          <div class="prod-footer">
+            <span class="prod-price">$540</span>
+            <span class="cond-badge cond-good">Good</span>
+          </div>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img">🎧</div>
+        <div class="prod-body">
+          <div class="prod-title">Sony WH-1000XM5</div>
+          <div class="prod-meta">Bought Jul 2023 · With case</div>
+          <div class="prod-footer">
+            <span class="prod-price">$185</span>
+            <span class="cond-badge cond-fair">Fair</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <div class="divider"></div>
+ 
+  <section class="section">
+    <div class="section-label">How it works</div>
+    <div class="section-title">List in 4 easy steps</div>
+    <div class="how">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <h4>Create a listing</h4>
+        <p>Choose a category and fill in the product details.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <h4>Add photos &amp; price</h4>
+        <p>Upload images, set your asking price, and note the condition.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <h4>Buyers reach you</h4>
+        <p>Interested buyers send you a message directly through the platform.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <h4>Close the deal</h4>
+        <p>Agree on delivery or pickup and mark the item as sold.</p>
+      </div>
+    </div>
+  </section>
+ 
+  <section style="padding: 0 2.5rem 4rem;">
+    <div class="cta-banner">
+      <h2>Ready to list your first product?</h2>
+      <p>Join thousands of sellers already on Dealio. It's free to list.</p>
+      <button class="btn-primary">Get started free</button>
+    </div>
+  </section>
+ 
+  <footer class="footer">
+    © 2026 <span>Dealio</span> — Buy &amp; sell electronics and daily essentials
+  </footer>
+ 
+</body>
+</html>
